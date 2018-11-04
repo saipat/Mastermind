@@ -58,6 +58,11 @@ class Code
     near_match_count - self.exact_matches(code2)
   end
 
+  def ==(code2)
+    return false unless code2.is_a?(Code)
+    self.pegs == code2.pegs
+  end
+
   protected
 
   def color_count
