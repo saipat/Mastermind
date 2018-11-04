@@ -77,5 +77,45 @@ class Code
 end
 
 class Game
+  MAX_TURNS = 3
   attr_reader :secret_code
+
+  def initialize(secret_code = Code.random)
+    @secret_code = secret_code
+    p @secret_code
+  end
+
+  def get_guess
+    puts "Please guess the code. Choose from [Blue, Orange, Green, Yellow, Red, Prurple]."
+
+    begin
+      string = gets.chomp
+      Code.parse(string)
+    rescue
+      pus "Invalid color. Error parsing the code!"
+      retry
+    end
+  end
+
+  def display_matches(code)
+    puts "Your exact matches: #{@secret_code.exact_matches(code)}"
+    puts "your near matches: #{@secret_code.near_matches(code)}"
+  end
+
+  def play
+    MAX_TURNS.times do
+      guess = get_guess
+      if guess == @secret_code
+        puts "You guessed it right pal!"
+        return
+      end
+      display_matches(guess)
+    end
+    puts "Sorry! you ran out of you MAX turns! Try again."
+  end
+end
+
+
+if __FILE__ == $PROGRAM_NAME
+  Game.new.play
 end
