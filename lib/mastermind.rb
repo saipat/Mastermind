@@ -13,7 +13,7 @@ class Code
 
   def self.parse(str)
     pegs = str.chars.map do |ch|
-     raise "Incvalid caolor" unless PEGS.keys.include?(ch.upcase)
+     raise "Invalid color" unless PEGS.keys.include?(ch.upcase)
      PEGS[ch.upcase]
    end
 
